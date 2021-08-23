@@ -3,6 +3,10 @@ package com.bridgelabz.employeewagecomputationproblem;
 public class EmployeeWageComputationProgram {
 
 	public static void main(String[] args) {
+
+		System.out.println("----------Welcome To Employee Wage Computation Program----------");
+		System.out.println();
+
 		final int EMPLOYEE_ABSENT = 0;
 		final int EMPLOYEE_PRESENT_FULL_TIME = 1;
 		final int EMPLOYEE_PRESENT_PART_TIME = 2;
@@ -17,12 +21,15 @@ public class EmployeeWageComputationProgram {
 		int dayWage = 0;
 		int totalWorkingHours = 0;
 		int totalWorkingDays = 0;
+		int presentft=0;
+		int presentpt=0;
+		int ab=0;
 
-		while ((totalWorkingDays < NUM_OF_WORKING_DAYS) && (totalWorkingHours < NUM_OF_WORKING_HOURS)) {
+		while ((totalWorkingDays < NUM_OF_WORKING_DAYS) && (totalWorkingHours< NUM_OF_WORKING_HOURS)) {
 			totalWorkingDays++;
 			double employeeCheck = Math.floor(Math.random() * 10) % 3;
 			switch((int)employeeCheck) {
-			case EMPLOYEE_PRESENT_FULL_TIME: if((totalWorkingHours+FULL_TIME) <= NUM_OF_WORKING_HOURS) {
+			case EMPLOYEE_PRESENT_FULL_TIME: if((totalWorkingHours+FULL_TIME)<= NUM_OF_WORKING_HOURS) {
 				dayWage = FULL_TIME * WAGE_PER_HOUR;
 				totalWorkingHours+=FULL_TIME;
 			}
@@ -30,8 +37,9 @@ public class EmployeeWageComputationProgram {
 				dayWage = (NUM_OF_WORKING_HOURS-totalWorkingHours) * WAGE_PER_HOUR;
 				totalWorkingHours+=(NUM_OF_WORKING_HOURS-totalWorkingHours);
 			}
+			presentft++;
 			break;
-			case EMPLOYEE_PRESENT_PART_TIME: if((totalWorkingHours+PART_TIME) <= NUM_OF_WORKING_HOURS) {
+			case EMPLOYEE_PRESENT_PART_TIME: if((totalWorkingHours+PART_TIME)<= NUM_OF_WORKING_HOURS) {
 				dayWage = PART_TIME * WAGE_PER_HOUR;
 				totalWorkingHours+=PART_TIME;
 			}
@@ -39,14 +47,22 @@ public class EmployeeWageComputationProgram {
 				dayWage = (NUM_OF_WORKING_HOURS-totalWorkingHours) * WAGE_PER_HOUR;
 				totalWorkingHours+=(NUM_OF_WORKING_HOURS-totalWorkingHours);
 			}
+			presentpt++;
 			break;
 			case EMPLOYEE_ABSENT: dayWage = ABSENT * WAGE_PER_HOUR;
+			ab++;
 			break;
 			}
 			totalWage= totalWage+dayWage;
 		}
+		System.out.println("Total Number of days Employee was present for Full Time : "+presentft);
+		System.out.println("Total Number of days Employee was present for Part Time : "+presentpt);
+		System.out.println("Total Number of days Employee was Absent : "+ab);
+		System.out.println();
 		System.out.println("Total Number of Days Employee has Worked for this month : "+totalWorkingDays);
 		System.out.println("Total Number of Hours Employee has Worked for this month : "+totalWorkingHours);
 		System.out.println("Total Employee Wage for this month : "+totalWage);
+		System.out.println();
+		System.out.println("----------------------------------------------------------------");
 	}
 }
