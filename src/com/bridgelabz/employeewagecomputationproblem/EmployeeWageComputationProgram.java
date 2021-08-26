@@ -2,20 +2,15 @@ package com.bridgelabz.employeewagecomputationproblem;
 
 public class EmployeeWageComputationProgram {
 
-	public static void main(String[] args) {
+	public static final int EMPLOYEE_ABSENT = 0;
+	public static final int EMPLOYEE_PRESENT_FULL_TIME_HOURS = 1;
+	public static final int EMPLOYEE_PRESENT_PART_TIME_HOURS = 2;
+	public static final int FULL_TIME_HOURS = 8;
+	public static final int PART_TIME_HOURS = 4;
+	public static final int ABSENT = 0;
 
-		System.out.println("----------Welcome To Employee Wage Computation Program----------");
-		System.out.println();
 
-		final int EMPLOYEE_ABSENT = 0;
-		final int EMPLOYEE_PRESENT_FULL_TIME = 1;
-		final int EMPLOYEE_PRESENT_PART_TIME = 2;
-		final int WAGE_PER_HOUR = 20;
-		final int FULL_TIME = 8;
-		final int PART_TIME = 4;
-		final int ABSENT = 0;
-		final int NUM_OF_WORKING_DAYS = 20;
-		final int NUM_OF_WORKING_HOURS = 100;
+	public static void calculateWagePerMonth(int numberOfWorkingDays, int numberOfWorkingHours, int wagePerHour ) {
 
 		int totalWage = 0;
 		int dayWage = 0;
@@ -24,32 +19,31 @@ public class EmployeeWageComputationProgram {
 		int presentft=0;
 		int presentpt=0;
 		int ab=0;
-
-		while ((totalWorkingDays < NUM_OF_WORKING_DAYS) && (totalWorkingHours< NUM_OF_WORKING_HOURS)) {
+		while ((totalWorkingDays < numberOfWorkingDays) && (totalWorkingHours< numberOfWorkingHours)) {
 			totalWorkingDays++;
 			double employeeCheck = Math.floor(Math.random() * 10) % 3;
 			switch((int)employeeCheck) {
-			case EMPLOYEE_PRESENT_FULL_TIME: if((totalWorkingHours+FULL_TIME)<= NUM_OF_WORKING_HOURS) {
-				dayWage = FULL_TIME * WAGE_PER_HOUR;
-				totalWorkingHours+=FULL_TIME;
+			case EMPLOYEE_PRESENT_FULL_TIME_HOURS: if((totalWorkingHours+FULL_TIME_HOURS)<= numberOfWorkingHours) {
+				dayWage = FULL_TIME_HOURS * wagePerHour;
+				totalWorkingHours+=FULL_TIME_HOURS;
 			}
 			else {
-				dayWage = (NUM_OF_WORKING_HOURS-totalWorkingHours) * WAGE_PER_HOUR;
-				totalWorkingHours+=(NUM_OF_WORKING_HOURS-totalWorkingHours);
+				dayWage = (numberOfWorkingHours-totalWorkingHours) * wagePerHour;
+				totalWorkingHours+=(numberOfWorkingHours-totalWorkingHours);
 			}
 			presentft++;
 			break;
-			case EMPLOYEE_PRESENT_PART_TIME: if((totalWorkingHours+PART_TIME)<= NUM_OF_WORKING_HOURS) {
-				dayWage = PART_TIME * WAGE_PER_HOUR;
-				totalWorkingHours+=PART_TIME;
+			case EMPLOYEE_PRESENT_PART_TIME_HOURS: if((totalWorkingHours+PART_TIME_HOURS)<= numberOfWorkingHours) {
+				dayWage = PART_TIME_HOURS * wagePerHour;
+				totalWorkingHours+=PART_TIME_HOURS;
 			}
 			else {
-				dayWage = (NUM_OF_WORKING_HOURS-totalWorkingHours) * WAGE_PER_HOUR;
-				totalWorkingHours+=(NUM_OF_WORKING_HOURS-totalWorkingHours);
+				dayWage = (numberOfWorkingHours-totalWorkingHours) * wagePerHour;
+				totalWorkingHours+=(numberOfWorkingHours-totalWorkingHours);
 			}
 			presentpt++;
 			break;
-			case EMPLOYEE_ABSENT: dayWage = ABSENT * WAGE_PER_HOUR;
+			case EMPLOYEE_ABSENT: dayWage = ABSENT * wagePerHour;
 			ab++;
 			break;
 			}
@@ -61,8 +55,17 @@ public class EmployeeWageComputationProgram {
 		System.out.println();
 		System.out.println("Total Number of Days Employee has Worked for this month : "+totalWorkingDays);
 		System.out.println("Total Number of Hours Employee has Worked for this month : "+totalWorkingHours);
-		System.out.println("Total Employee Wage for this month : "+totalWage);
+		System.out.println("Total Employee Wage for this month : "+totalWage);	
 		System.out.println();
 		System.out.println("----------------------------------------------------------------");
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println("----------Welcome To Employee Wage Computation Program----------");
+		System.out.println();
+		calculateWagePerMonth(20, 100, 20);
+		calculateWagePerMonth(20, 10, 20);
+		calculateWagePerMonth(2, 10, 20);
 	}
 }
