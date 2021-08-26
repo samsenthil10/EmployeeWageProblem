@@ -10,7 +10,7 @@ public class EmployeeWageComputationProgram {
 	public static final int ABSENT = 0;
 
 
-	public static void calculateWagePerMonth(int numberOfWorkingDays, int numberOfWorkingHours, int wagePerHour ) {
+	public static void calculateWagePerMonth(String companyName, int numberOfWorkingDays, int numberOfWorkingHours, int wagePerHour ) {
 
 		int totalWage = 0;
 		int dayWage = 0;
@@ -49,6 +49,8 @@ public class EmployeeWageComputationProgram {
 			}
 			totalWage= totalWage+dayWage;
 		}
+		System.out.println("Report for Employee working at "+companyName);
+		System.out.println();
 		System.out.println("Total Number of days Employee was present for Full Time : "+presentft);
 		System.out.println("Total Number of days Employee was present for Part Time : "+presentpt);
 		System.out.println("Total Number of days Employee was Absent : "+ab);
@@ -64,8 +66,8 @@ public class EmployeeWageComputationProgram {
 
 		System.out.println("----------Welcome To Employee Wage Computation Program----------");
 		System.out.println();
-		calculateWagePerMonth(20, 100, 20);
-		calculateWagePerMonth(20, 10, 20);
-		calculateWagePerMonth(2, 10, 20);
+		calculateWagePerMonth("Reliance", 20, 100, 20);
+		calculateWagePerMonth("D-Mart", 20, 10, 20);
+		calculateWagePerMonth("Airtel", 2, 10, 20);
 	}
 }
