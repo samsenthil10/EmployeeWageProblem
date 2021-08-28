@@ -2,72 +2,52 @@ package com.bridgelabz.employeewagecomputationproblem;
 
 public class EmployeeWageComputationProgram {
 
-	public static final int EMPLOYEE_ABSENT = 0;
-	public static final int EMPLOYEE_PRESENT_FULL_TIME_HOURS = 1;
-	public static final int EMPLOYEE_PRESENT_PART_TIME_HOURS = 2;
-	public static final int FULL_TIME_HOURS = 8;
-	public static final int PART_TIME_HOURS = 4;
+	public static final int FULL_TIME_HRS = 8;
+	public static final int FULL_TIME = 2;
+	public static final int PART_TIME = 1;
 	public static final int ABSENT = 0;
 
+	private final String companyName;
+	private final int wagePerHour;
+	private final int noOfDays;
+	private final int maxHrs;
 
-	public static void calculateWagePerMonth(String companyName, int numberOfWorkingDays, int numberOfWorkingHours, int wagePerHour ) {
-
-		int totalWage = 0;
-		int dayWage = 0;
-		int totalWorkingHours = 0;
-		int totalWorkingDays = 0;
-		int presentft=0;
-		int presentpt=0;
-		int ab=0;
-		while ((totalWorkingDays < numberOfWorkingDays) && (totalWorkingHours< numberOfWorkingHours)) {
-			totalWorkingDays++;
-			double employeeCheck = Math.floor(Math.random() * 10) % 3;
-			switch((int)employeeCheck) {
-			case EMPLOYEE_PRESENT_FULL_TIME_HOURS: if((totalWorkingHours+FULL_TIME_HOURS)<= numberOfWorkingHours) {
-				dayWage = FULL_TIME_HOURS * wagePerHour;
-				totalWorkingHours+=FULL_TIME_HOURS;
-			}
-			else {
-				dayWage = (numberOfWorkingHours-totalWorkingHours) * wagePerHour;
-				totalWorkingHours+=(numberOfWorkingHours-totalWorkingHours);
-			}
-			presentft++;
-			break;
-			case EMPLOYEE_PRESENT_PART_TIME_HOURS: if((totalWorkingHours+PART_TIME_HOURS)<= numberOfWorkingHours) {
-				dayWage = PART_TIME_HOURS * wagePerHour;
-				totalWorkingHours+=PART_TIME_HOURS;
-			}
-			else {
-				dayWage = (numberOfWorkingHours-totalWorkingHours) * wagePerHour;
-				totalWorkingHours+=(numberOfWorkingHours-totalWorkingHours);
-			}
-			presentpt++;
-			break;
-			case EMPLOYEE_ABSENT: dayWage = ABSENT * wagePerHour;
-			ab++;
-			break;
-			}
-			totalWage= totalWage+dayWage;
-		}
-		System.out.println("Report for Employee working at "+companyName);
-		System.out.println();
-		System.out.println("Total Number of days Employee was present for Full Time : "+presentft);
-		System.out.println("Total Number of days Employee was present for Part Time : "+presentpt);
-		System.out.println("Total Number of days Employee was Absent : "+ab);
-		System.out.println();
-		System.out.println("Total Number of Days Employee has Worked for this month : "+totalWorkingDays);
-		System.out.println("Total Number of Hours Employee has Worked for this month : "+totalWorkingHours);
-		System.out.println("Total Employee Wage for this month : "+totalWage);	
-		System.out.println();
-		System.out.println("----------------------------------------------------------------");
+	public EmployeeWageComputationProgram(String companyName, int wagePerHour, int noOfDays, int maxHrs) {
+		this.companyName = companyName;
+		this.wagePerHour = wagePerHour;
+		this.maxHrs = maxHrs;
+		this.noOfDays = noOfDays;
 	}
 
 	public static void main(String[] args) {
+		EmployeeWageComputationProgram dMart = new EmployeeWageComputationProgram("DMart", 20,2,10);
+		EmployeeWageComputationProgram reliance = new EmployeeWageComputationProgram("Reliance", 10,4,20);
+		dMart.calculateWage();
+		reliance.calculateWage();
+	}
 
-		System.out.println("----------Welcome To Employee Wage Computation Program----------");
-		System.out.println();
-		calculateWagePerMonth("Reliance", 20, 100, 20);
-		calculateWagePerMonth("D-Mart", 20, 10, 20);
-		calculateWagePerMonth("Airtel", 2, 10, 20);
+	public void calculateWage() {
+		int totalHrs = 0, day = 0;
+		while (totalHrs < maxHrs && day < noOfDays) {
+			int hours = 0;
+			double empCheck = Math.floor(Math.random() * 10) % 3;
+			switch ((int) empCheck) {
+			case FULL_TIME:
+				hours = FULL_TIME_HRS;
+				break;
+
+			case PART_TIME:
+				hours = FULL_TIME_HRS / 2;
+				break;
+
+			case ABSENT:
+				hours = 0;
+			}
+			totalHrs += hours;
+			day++;
+			System.out.println("Day " + day + ": " + hours + " hours");
+		}
+		totalHrs = totalHrs > 100 ? 100 : totalHrs;
+		System.out.println("Monthly Wage at " + companyName + " = " + (totalHrs * wagePerHour));
 	}
 }
