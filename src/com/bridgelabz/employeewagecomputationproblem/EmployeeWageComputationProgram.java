@@ -7,28 +7,29 @@ public class EmployeeWageComputationProgram {
 	public static final int PART_TIME = 1;
 	public static final int ABSENT = 0;
 
-	private final String companyName;
-	private final int wagePerHour;
-	private final int noOfDays;
-	private final int maxHrs;
+	private int noOfCompany = 0;
+	private CompanyEmployeeWage[] companyEmployeeWageArray;
 
-	public EmployeeWageComputationProgram(String companyName, int wagePerHour, int noOfDays, int maxHrs) {
-		this.companyName = companyName;
-		this.wagePerHour = wagePerHour;
-		this.maxHrs = maxHrs;
-		this.noOfDays = noOfDays;
+	public EmployeeWageComputationProgram() {
+		companyEmployeeWageArray = new CompanyEmployeeWage[5];
 	}
 
-	public static void main(String[] args) {
-		EmployeeWageComputationProgram dMart = new EmployeeWageComputationProgram("DMart", 20,2,10);
-		EmployeeWageComputationProgram reliance = new EmployeeWageComputationProgram("Reliance", 10,4,20);
-		dMart.calculateWage();
-		reliance.calculateWage();
+	private void addCompanyEmployeeWage(String companyName, int wagePerHour, int noOfDays, int maxHoursPerMonth) {
+
+		companyEmployeeWageArray[noOfCompany] = new CompanyEmployeeWage(companyName, wagePerHour, noOfDays, maxHoursPerMonth);
+		noOfCompany++;
 	}
 
-	public void calculateWage() {
+	public void calculateCompanyEmployeeWage() {
+		for(int index=0;index<noOfCompany;index++) {
+			companyEmployeeWageArray[index].setTotalEmpWage(calculateEmpWage(companyEmployeeWageArray[index]));
+			System.out.println(companyEmployeeWageArray[index]);
+		}
+	}
+
+	public int calculateEmpWage(CompanyEmployeeWage companyEmpWage) {
 		int totalHrs = 0, day = 0;
-		while (totalHrs < maxHrs && day < noOfDays) {
+		while (totalHrs < companyEmpWage.maxHoursPerMonth && day < companyEmpWage.noOfDays) {
 			int hours = 0;
 			double empCheck = Math.floor(Math.random() * 10) % 3;
 			switch ((int) empCheck) {
@@ -47,7 +48,14 @@ public class EmployeeWageComputationProgram {
 			day++;
 			System.out.println("Day " + day + ": " + hours + " hours");
 		}
-		totalHrs = totalHrs > 100 ? 100 : totalHrs;
-		System.out.println("Monthly Wage at " + companyName + " = " + (totalHrs * wagePerHour));
+		return totalHrs * companyEmpWage.wagePerHour;
+	}
+
+	public static void main(String[] args) {
+
+		EmployeeWageComputationProgram empWageCalculator = new EmployeeWageComputationProgram();
+		empWageCalculator.addCompanyEmployeeWage("DMart", 20, 6, 10);
+		empWageCalculator.addCompanyEmployeeWage("Reliance", 10, 5, 20);
+		empWageCalculator.calculateCompanyEmployeeWage();
 	}
 }
